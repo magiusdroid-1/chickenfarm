@@ -1,0 +1,40 @@
+name: "User Browsing Journey"
+vars:
+  base_url: "https://httpbin.org"
+
+tests:
+  - name: "User views product catalog"
+    steps:
+      - name: "User loads the main product listing"
+        plugin: "http"
+        config:
+          method: "GET"
+          url: "{{ .vars.base_url }}/get"
+        assertions:
+          - type: "status_code"
+            expected: 200
+
+  - name: "User searches for specific items"
+    steps:
+      - name: "User applies search filters"
+        plugin: "http"
+        config:
+          method: "GET"
+          url: "{{ .vars.base_url }}/get?foo=bar&test=123"
+        assertions:
+          - type: "status_code"
+            expected: 200
+          - type: "json_path"
+            path: ".args.foo"
+            expected: "bar"
+
+  - name: "User checks their account info"
+    steps:
+      - name: "User retrieves their profile details"
+        plugin: "http"
+        config:
+          method: "GET"
+          url: "{{ .vars.base_url }}/user-agent"
+        assertions:
+          - type: "status_code"
+            expected: 200
