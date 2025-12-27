@@ -1,0 +1,35 @@
+name: "Frontend POST Tests"
+vars:
+  base_url: "https://httpbin.org"
+
+tests:
+  - name: "Basic POST request"
+    steps:
+      - name: "Send POST with JSON body"
+        plugin: "http"
+        config:
+          method: "POST"
+          url: "{{ .vars.base_url }}/post"
+          headers:
+            Content-Type: "application/json"
+          body: '{"message": "hello world"}'
+        assertions:
+          - type: "status_code"
+            expected: 200
+
+  - name: "POST and validate echo"
+    steps:
+      - name: "Send data and verify response"
+        plugin: "http"
+        config:
+          method: "POST"
+          url: "{{ .vars.base_url }}/post"
+          headers:
+            Content-Type: "application/json"
+          body: '{"name": "rocketship", "version": "1.0"}'
+        assertions:
+          - type: "status_code"
+            expected: 200
+          - type: "json_path"
+            path: ".json.name"
+            expected: "rocketship"

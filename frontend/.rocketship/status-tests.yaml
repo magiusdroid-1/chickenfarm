@@ -1,0 +1,37 @@
+name: "Frontend Status Code Tests"
+vars:
+  base_url: "https://httpbin.org"
+
+tests:
+  - name: "Test 200 OK status"
+    steps:
+      - name: "Request 200 status"
+        plugin: "http"
+        config:
+          method: "GET"
+          url: "{{ .vars.base_url }}/status/200"
+        assertions:
+          - type: "status_code"
+            expected: 200
+
+  - name: "Test 201 Created status"
+    steps:
+      - name: "Request 201 status"
+        plugin: "http"
+        config:
+          method: "GET"
+          url: "{{ .vars.base_url }}/status/201"
+        assertions:
+          - type: "status_code"
+            expected: 201
+
+  - name: "Test 204 No Content status"
+    steps:
+      - name: "Request 204 status"
+        plugin: "http"
+        config:
+          method: "GET"
+          url: "{{ .vars.base_url }}/status/204"
+        assertions:
+          - type: "status_code"
+            expected: 204

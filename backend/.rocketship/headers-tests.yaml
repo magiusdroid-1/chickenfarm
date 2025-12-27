@@ -1,0 +1,40 @@
+name: "Backend Headers Tests"
+vars:
+  base_url: "https://httpbin.org"
+
+tests:
+  - name: "Custom headers echo"
+    steps:
+      - name: "Send custom headers"
+        plugin: "http"
+        config:
+          method: "GET"
+          url: "{{ .vars.base_url }}/headers"
+          headers:
+            X-Custom-Header: "custom-value"
+            X-Request-Id: "req-12345"
+        assertions:
+          - type: "status_code"
+            expected: 200
+
+  - name: "Response headers check"
+    steps:
+      - name: "Check response headers endpoint"
+        plugin: "http"
+        config:
+          method: "GET"
+          url: "{{ .vars.base_url }}/response-headers?X-Test=hello"
+        assertions:
+          - type: "status_code"
+            expected: 200
+
+  - name: "IP address endpoint"
+    steps:
+      - name: "Get origin IP"
+        plugin: "http"
+        config:
+          method: "GET"
+          url: "{{ .vars.base_url }}/ip"
+        assertions:
+          - type: "status_code"
+            expected: 200
