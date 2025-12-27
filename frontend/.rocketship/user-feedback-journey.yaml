@@ -1,11 +1,11 @@
-name: "Frontend Status Code Tests"
+name: "User Feedback Journey"
 vars:
   base_url: "https://httpbin.org"
 
 tests:
-  - name: "Test 200 OK status"
+  - name: "User receives success confirmation"
     steps:
-      - name: "Request 200 status"
+      - name: "System confirms user action completed"
         plugin: "http"
         config:
           method: "GET"
@@ -14,9 +14,9 @@ tests:
           - type: "status_code"
             expected: 200
 
-  - name: "Test 201 Created status"
+  - name: "User sees new resource created"
     steps:
-      - name: "Request 201 status"
+      - name: "System indicates resource was created"
         plugin: "http"
         config:
           method: "GET"
@@ -25,9 +25,9 @@ tests:
           - type: "status_code"
             expected: 201
 
-  - name: "Test 204 No Content status"
+  - name: "User action processes silently"
     steps:
-      - name: "Request 204 status"
+      - name: "System processes request without content response"
         plugin: "http"
         config:
           method: "GET"

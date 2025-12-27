@@ -1,11 +1,11 @@
-name: "Backend Data Tests"
+name: "User Content Management Journey"
 vars:
   base_url: "https://httpbin.org"
 
 tests:
-  - name: "PUT request test"
+  - name: "User updates their profile information"
     steps:
-      - name: "Send PUT request"
+      - name: "User saves updated profile data"
         plugin: "http"
         config:
           method: "PUT"
@@ -20,9 +20,9 @@ tests:
             path: ".json.id"
             expected: 1
 
-  - name: "DELETE request test"
+  - name: "User removes an old post"
     steps:
-      - name: "Send DELETE request"
+      - name: "User deletes selected content"
         plugin: "http"
         config:
           method: "DELETE"
@@ -31,9 +31,9 @@ tests:
           - type: "status_code"
             expected: 200
 
-  - name: "PATCH request test"
+  - name: "User edits an existing comment"
     steps:
-      - name: "Send PATCH request"
+      - name: "User modifies comment text"
         plugin: "http"
         config:
           method: "PATCH"

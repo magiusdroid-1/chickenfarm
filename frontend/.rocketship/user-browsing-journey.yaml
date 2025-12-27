@@ -1,11 +1,11 @@
-name: "Frontend GET Tests"
+name: "User Browsing Journey"
 vars:
   base_url: "https://httpbin.org"
 
 tests:
-  - name: "Basic GET request"
+  - name: "User views product catalog"
     steps:
-      - name: "Fetch GET endpoint"
+      - name: "User loads the main product listing"
         plugin: "http"
         config:
           method: "GET"
@@ -14,9 +14,9 @@ tests:
           - type: "status_code"
             expected: 200
 
-  - name: "GET with query parameters"
+  - name: "User searches for specific items"
     steps:
-      - name: "Fetch with params"
+      - name: "User applies search filters"
         plugin: "http"
         config:
           method: "GET"
@@ -28,9 +28,9 @@ tests:
             path: ".args.foo"
             expected: "bar"
 
-  - name: "GET user agent"
+  - name: "User checks their account info"
     steps:
-      - name: "Fetch user agent"
+      - name: "User retrieves their profile details"
         plugin: "http"
         config:
           method: "GET"

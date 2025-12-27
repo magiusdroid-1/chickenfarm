@@ -1,11 +1,11 @@
-name: "Frontend POST Tests"
+name: "User Submission Journey"
 vars:
   base_url: "https://httpbin.org"
 
 tests:
-  - name: "Basic POST request"
+  - name: "User submits a support request"
     steps:
-      - name: "Send POST with JSON body"
+      - name: "User sends support ticket with details"
         plugin: "http"
         config:
           method: "POST"
@@ -17,9 +17,9 @@ tests:
           - type: "status_code"
             expected: 200
 
-  - name: "POST and validate echo"
+  - name: "User creates a new listing"
     steps:
-      - name: "Send data and verify response"
+      - name: "User publishes new listing with metadata"
         plugin: "http"
         config:
           method: "POST"

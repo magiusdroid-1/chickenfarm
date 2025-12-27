@@ -1,11 +1,11 @@
-name: "Backend Headers Tests"
+name: "User Preferences Journey"
 vars:
   base_url: "https://httpbin.org"
 
 tests:
-  - name: "Custom headers echo"
+  - name: "User sets display preferences"
     steps:
-      - name: "Send custom headers"
+      - name: "User sends preference configuration"
         plugin: "http"
         config:
           method: "GET"
@@ -17,9 +17,9 @@ tests:
           - type: "status_code"
             expected: 200
 
-  - name: "Response headers check"
+  - name: "User receives personalized settings"
     steps:
-      - name: "Check response headers endpoint"
+      - name: "System returns user-specific settings"
         plugin: "http"
         config:
           method: "GET"
@@ -28,9 +28,9 @@ tests:
           - type: "status_code"
             expected: 200
 
-  - name: "IP address endpoint"
+  - name: "User location is detected for localization"
     steps:
-      - name: "Get origin IP"
+      - name: "System identifies user region"
         plugin: "http"
         config:
           method: "GET"

@@ -1,11 +1,11 @@
-name: "Backend Auth Tests"
+name: "User Login Journey"
 vars:
   base_url: "https://httpbin.org"
 
 tests:
-  - name: "Basic auth success"
+  - name: "User logs in with username and password"
     steps:
-      - name: "Test basic authentication"
+      - name: "User submits login credentials"
         plugin: "http"
         config:
           method: "GET"
@@ -19,9 +19,9 @@ tests:
             path: ".authenticated"
             expected: true
 
-  - name: "Bearer token header"
+  - name: "User accesses protected dashboard"
     steps:
-      - name: "Send bearer token"
+      - name: "User authenticates with session token"
         plugin: "http"
         config:
           method: "GET"
