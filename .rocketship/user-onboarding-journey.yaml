@@ -20,7 +20,6 @@ tests:
         plugin: "log"
         config:
           message: "User beginning registration process"
-          level: "INFO"
       - name: "User submits signup details"
         plugin: "http"
         config:
