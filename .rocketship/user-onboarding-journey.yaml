@@ -1,0 +1,51 @@
+name: "User Onboarding Journey"
+vars:
+  base_url: "https://httpbin.org"
+
+tests:
+  - name: "New user lands on welcome page"
+    steps:
+      - name: "User views the welcome screen"
+        plugin: "http"
+        config:
+          method: "GET"
+          url: "{{ .vars.base_url }}/get"
+        assertions:
+          - type: "status_code"
+            expected: 200
+
+  - name: "User completes registration form"
+    steps:
+      - name: "Log registration attempt"
+        plugin: "log"
+        config:
+          message: "User beginning registration process"
+      - name: "User submits signup details"
+        plugin: "http"
+        config:
+          method: "POST"
+          url: "{{ .vars.base_url }}/post"
+          headers:
+            Content-Type: "application/json"
+          body: '{"email": "newuser@example.com", "name": "New User"}'
+        assertions:
+          - type: "status_code"
+            expected: 200
+          - type: "json_path"
+            path: ".json.email"
+            expected: "newuser@example.com"
+      - name: "Wait for account processing"
+        plugin: "delay"
+        config:
+          duration: "1s"
+
+  - name: "User receives confirmation of account creation"
+    steps:
+      - name: "System confirms account was created"
+        plugin: "http"
+        config:
+          method: "GET"
+          url: "{{ .vars.base_url }}/status/201"
+        assertions:
+          - type: "status_code"
+            expected: 201
