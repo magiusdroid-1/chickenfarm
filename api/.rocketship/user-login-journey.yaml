@@ -1,4 +1,4 @@
-name: "User Login Journey"
+name: "User Login Journey 2"
 vars:
   base_url: "https://httpbin.org"
 
