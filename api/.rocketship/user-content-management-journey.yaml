@@ -5,6 +5,10 @@ vars:
 tests:
   - name: "User updates their profile information"
     steps:
+      - name: "Log profile update"
+        plugin: "log"
+        config:
+          message: "User is updating their profile"
       - name: "User saves updated profile data"
         plugin: "http"
         config:
