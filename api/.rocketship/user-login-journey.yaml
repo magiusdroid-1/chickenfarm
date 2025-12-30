@@ -5,6 +5,10 @@ vars:
 tests:
   - name: "User logs in with username and password"
     steps:
+      - name: "Log login attempt"
+        plugin: "log"
+        config:
+          message: "User attempting login with credentials"
       - name: "User submits login credentials"
         plugin: "http"
         config:
@@ -18,6 +22,19 @@ tests:
           - type: "json_path"
             path: ".authenticated"
             expected: true
+
+  - name: "User fails login with wrong password"
+    steps:
+      - name: "User submits incorrect credentials"
+        plugin: "http"
+        config:
+          method: "GET"
+          url: "{{ .vars.base_url }}/basic-auth/testuser/wrongpass"
+          headers:
+            Authorization: "Basic dGVzdHVzZXI6d3Jvbmdwdw=="
+        assertions:
+          - type: "status_code"
+            expected: 401
 
   - name: "User accesses protected dashboard"
     steps:

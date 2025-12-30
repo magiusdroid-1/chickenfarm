@@ -1,0 +1,59 @@
+name: "User Checkout Journey"
+vars:
+  base_url: "https://httpbin.org"
+
+tests:
+  - name: "User views shopping cart"
+    steps:
+      - name: "User loads cart contents"
+        plugin: "http"
+        config:
+          method: "GET"
+          url: "{{ .vars.base_url }}/get?cart=items"
+        assertions:
+          - type: "status_code"
+            expected: 200
+
+  - name: "User enters shipping information"
+    steps:
+      - name: "Log checkout step"
+        plugin: "log"
+        config:
+          message: "User entering shipping details"
+      - name: "User submits shipping address"
+        plugin: "http"
+        config:
+          method: "POST"
+          url: "{{ .vars.base_url }}/post"
+          headers:
+            Content-Type: "application/json"
+          body: '{"address": "123 Main St", "city": "Seattle", "zip": "98101"}'
+        assertions:
+          - type: "status_code"
+            expected: 200
+
+  - name: "User completes payment"
+    steps:
+      - name: "User submits payment details"
+        plugin: "http"
+        config:
+          method: "POST"
+          url: "{{ .vars.base_url }}/post"
+          headers:
+            Content-Type: "application/json"
+          body: '{"payment_method": "card", "amount": 99.99}'
+        assertions:
+          - type: "status_code"
+            expected: 200
+      - name: "Wait for payment processing"
+        plugin: "delay"
+        config:
+          duration: "500ms"
+      - name: "User receives order confirmation"
+        plugin: "http"
+        config:
+          method: "GET"
+          url: "{{ .vars.base_url }}/status/201"
+        assertions:
+          - type: "status_code"
+            expected: 201
