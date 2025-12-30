@@ -1,0 +1,30 @@
+name: "User Checkout Journey"
+vars:
+  base_url: "https://httpbin.org"
+
+tests:
+  - name: "User adds item to cart"
+    steps:
+      - name: "Add product to cart"
+        plugin: "http"
+        config:
+          method: "POST"
+          url: "{{ .vars.base_url }}/post"
+          body: |
+            {"product_id": "123", "quantity": 1}
+        assertions:
+          - type: "status_code"
+            expected: 200
+
+  - name: "User completes checkout"
+    steps:
+      - name: "Submit payment"
+        plugin: "http"
+        config:
+          method: "POST"
+          url: "{{ .vars.base_url }}/post"
+          body: |
+            {"payment_method": "card"}
+        assertions:
+          - type: "status_code"
+            expected: 200
