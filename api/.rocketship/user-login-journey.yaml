@@ -1,0 +1,21 @@
+name: "User Login Journey"
+vars:
+  base_url: "https://httpbin.org"
+
+tests:
+  - name: "User logs in with credentials"
+    steps:
+      - name: "Log login attempt"
+        plugin: "log"
+        config:
+          message: "User attempting to log in"
+      - name: "User submits login credentials"
+        plugin: "http"
+        config:
+          method: "GET"
+          url: "{{ .vars.base_url }}/basic-auth/testuser/testpass"
+          headers:
+            Authorization: "Basic dGVzdHVzZXI6dGVzdHBhc3M="
+        assertions:
+          - type: "status_code"
+            expected: 200
