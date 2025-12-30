@@ -1,0 +1,46 @@
+name: "User Content Management Journey"
+vars:
+  base_url: "https://httpbin.org"
+
+tests:
+  - name: "User updates their profile information"
+    steps:
+      - name: "User saves updated profile data"
+        plugin: "http"
+        config:
+          method: "PUT"
+          url: "{{ .vars.base_url }}/put"
+          headers:
+            Content-Type: "application/json"
+          body: '{"id": 1, "name": "updated"}'
+        assertions:
+          - type: "status_code"
+            expected: 200
+          - type: "json_path"
+            path: ".json.id"
+            expected: 1
+
+  - name: "User removes an old post"
+    steps:
+      - name: "User deletes selected content"
+        plugin: "http"
+        config:
+          method: "DELETE"
+          url: "{{ .vars.base_url }}/delete"
+        assertions:
+          - type: "status_code"
+            expected: 200
+
+  - name: "User edits an existing comment"
+    steps:
+      - name: "User modifies comment text"
+        plugin: "http"
+        config:
+          method: "PATCH"
+          url: "{{ .vars.base_url }}/patch"
+          headers:
+            Content-Type: "application/json"
+          body: '{"field": "patched"}'
+        assertions:
+          - type: "status_code"
+            expected: 200
