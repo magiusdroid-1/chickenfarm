@@ -37,7 +37,7 @@ tests:
       - name: "Wait for account processing"
         plugin: "delay"
         config:
-          duration: 1000
+          duration: "1s"
 
   - name: "User receives confirmation of account creation"
     steps:
