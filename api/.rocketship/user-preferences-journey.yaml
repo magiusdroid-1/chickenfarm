@@ -3,7 +3,7 @@ vars:
   base_url: "https://httpbin.org"
 
 tests:
-  - name: "User sets display preferences"
+  - name: "User configures display preferences"
     steps:
       - name: "User sends preference configuration"
         plugin: "http"
