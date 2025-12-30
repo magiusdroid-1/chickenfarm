@@ -16,6 +16,11 @@ tests:
 
   - name: "User completes registration form"
     steps:
+      - name: "Log registration attempt"
+        plugin: "log"
+        config:
+          message: "User beginning registration process"
+          level: "INFO"
       - name: "User submits signup details"
         plugin: "http"
         config:
@@ -30,6 +35,10 @@ tests:
           - type: "json_path"
             path: ".json.email"
             expected: "newuser@example.com"
+      - name: "Wait for account processing"
+        plugin: "delay"
+        config:
+          duration: 1000
 
   - name: "User receives confirmation of account creation"
     steps:
