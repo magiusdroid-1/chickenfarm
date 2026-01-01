@@ -5,6 +5,20 @@ vars:
 tests:
   - name: "User sets display preferences"
     steps:
+      - name: "Log preference update start"
+        plugin: "log"
+        config:
+          message: "User is setting display preferences"
+      - name: "Wait before sending preferences"
+        plugin: "delay"
+        config:
+          duration: "500ms"
+      - name: "Validate preference data"
+        plugin: "script"
+        config:
+          language: "javascript"
+          script: |
+            save("theme", "dark");
       - name: "User sends preference configuration"
         plugin: "http"
         config:
