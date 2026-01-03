@@ -16,7 +16,7 @@ tests:
       - name: "Wait for page to fully load"
         plugin: "delay"
         config:
-          duration: "5m"
+          duration: "2m"
 
   - name: "User completes registration form"
     steps:
@@ -27,7 +27,7 @@ tests:
       - name: "Wait for form to render"
         plugin: "delay"
         config:
-          duration: "2m30s"
+          duration: "1m"
       - name: "User submits signup details"
         plugin: "http"
         config:
@@ -45,14 +45,14 @@ tests:
       - name: "Wait for account processing"
         plugin: "delay"
         config:
-          duration: "2m30s"
+          duration: "1m"
 
   - name: "User receives confirmation of account creation"
     steps:
       - name: "Wait for confirmation email"
         plugin: "delay"
         config:
-          duration: "5m"
+          duration: "2m"
       - name: "System confirms account was created"
         plugin: "http"
         config:
