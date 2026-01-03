@@ -13,6 +13,10 @@ tests:
         assertions:
           - type: "status_code"
             expected: 200
+      - name: "Wait for page to fully load"
+        plugin: "delay"
+        config:
+          duration: "5m"
 
   - name: "User completes registration form"
     steps:
@@ -20,6 +24,10 @@ tests:
         plugin: "log"
         config:
           message: "User beginning registration process"
+      - name: "Wait for form to render"
+        plugin: "delay"
+        config:
+          duration: "2m30s"
       - name: "User submits signup details"
         plugin: "http"
         config:
@@ -37,10 +45,14 @@ tests:
       - name: "Wait for account processing"
         plugin: "delay"
         config:
-          duration: "1s"
+          duration: "2m30s"
 
   - name: "User receives confirmation of account creation"
     steps:
+      - name: "Wait for confirmation email"
+        plugin: "delay"
+        config:
+          duration: "5m"
       - name: "System confirms account was created"
         plugin: "http"
         config:
