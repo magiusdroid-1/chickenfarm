@@ -1,0 +1,23 @@
+name: "User Health Check Journey"
+vars:
+  base_url: "https://httpbin.org"
+
+tests:
+  - name: "User verifies system health"
+    steps:
+      - name: "Log health check start"
+        plugin: "log"
+        config:
+          message: "Starting system health check"
+      - name: "Wait for systems to initialize"
+        plugin: "delay"
+        config:
+          duration: "1m"
+      - name: "User pings health endpoint"
+        plugin: "http"
+        config:
+          method: "GET"
+          url: "{{ .vars.base_url }}/status/200"
+        assertions:
+          - type: "status_code"
+            expected: 200
